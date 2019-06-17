@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: ${GAT_DRIER_DS_URL:jdbc:postgresql://localhost:5432/take_away}
+    username: ${GAT_DRIER_DS_USER:take_away}
+    password: ${GAT_DRIER_DS_PASSWORD:take_away}
+  mvc.locale: ru_RU
+  flyway.locations: classpath:db/migrations
+
+server:
+  port: 8080
+  servlet.context-path: /rest/api
+
+logging:
+  level:
+    root: INFO
+    sql: WARN
+    web: INFO
