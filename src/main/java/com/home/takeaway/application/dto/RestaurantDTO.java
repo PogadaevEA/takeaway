@@ -1,80 +1,61 @@
-package com.home.takeaway.domain.model;
+package com.home.takeaway.application.dto;
 
+import com.home.takeaway.domain.model.Restaurant;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.util.Date;
 
-/**
- * Ресторан - заведение общепита
- */
-@Entity
-@Table(name = "t_restaurant")
-public class Restaurant {
-
-    /**
-     * Идентификатор
-     */
-    @Id
-    @Column(name = "id")
-    @Getter private Long id;
+@NoArgsConstructor
+@AllArgsConstructor
+public class RestaurantDTO {
 
     /**
      * Название
      */
-    @Column(name = "name")
     @Getter @Setter private String name;
 
     /**
      * Адресс
      */
-    @Column(name = "address")
     @Getter @Setter private String address;
 
     /**
      * Контакт
      */
-    @Column(name = "contact_person")
     @Getter @Setter private String contactPerson;
 
     /**
      * Контактный телефон
      */
-    @Column(name = "contact_phone")
     @Getter @Setter private String contactPhone;
 
     /**
      * Координата - Широта
      */
-    @Column(name = "lat")
     @Getter @Setter private Double lat;
 
     /**
      * Координата - Долгота
      */
-    @Column(name = "lon")
     @Getter @Setter private Double lon;
 
     /**
      * График работы
      */
-    @Column(name = "work_time")
     @Getter @Setter private String workTime;
 
     /**
      * Дата создания
      */
-    @Column(name = "created")
-    @Temporal(TemporalType.TIMESTAMP)
     @Getter @Setter private Date created;
 
     /**
      * Тип заведения
      */
-    @Column(name = "type")
-    @Enumerated(EnumType.STRING)
-    @Getter @Setter private RestaurantType restaurantType;
+    @Getter @Setter private String restaurantType;
 
     /**
      * Тип заведения
@@ -84,4 +65,15 @@ public class Restaurant {
         FASTFOOD
     }
 
+    public RestaurantDTO(Restaurant restaurant) {
+        this.name = restaurant.getName();
+        this.address = restaurant.getAddress();
+        this.contactPerson = restaurant.getContactPerson();
+        this.contactPhone = restaurant.getContactPhone();
+        this.lat = restaurant.getLat();
+        this.lon = restaurant.getLon();
+        this.workTime = restaurant.getWorkTime();
+        this.created = restaurant.getCreated();
+        this.restaurantType = restaurant.getRestaurantType().name();
+    }
 }
