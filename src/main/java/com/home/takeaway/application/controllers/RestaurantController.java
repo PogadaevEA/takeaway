@@ -2,7 +2,8 @@ package com.home.takeaway.application.controllers;
 
 import com.home.takeaway.application.dto.RestaurantDTO;
 import com.home.takeaway.application.managers.RestaurantManager;
-import lombok.extern.log4j.Log4j;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Log4j
+@Api(value = "Restaurant Controller", produces = "application/json")
 @RestController
 public class RestaurantController {
 
@@ -26,6 +27,7 @@ public class RestaurantController {
     /**
      * Получить список ресторанов
      */
+    @ApiOperation(value = "Getting all restaurant list", response = RestaurantDTO.class, responseContainer = "List")
     @PostMapping("/restaurant/list")
     public ResponseEntity getRestaurantList() {
         List<RestaurantDTO> restaurantDTOList = restaurantManager.getRestaurantList();

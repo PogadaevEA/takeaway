@@ -4,6 +4,11 @@ spring:
     username: ${GAT_DRIER_DS_USER:take_away}
     password: ${GAT_DRIER_DS_PASSWORD:take_away}
   mvc.locale: ru_RU
+  jpa:
+    hibernate.ddl-auto: validate
+    properties.hibernate:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      jdbc.lob.non_contextual_creation: true
   flyway.locations: classpath:db/migrations
 
 server:
