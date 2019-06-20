@@ -45,6 +45,29 @@ create table t_user (
     constraint t_user_role_fk foreign key (role_id) references t_role (id)
 );
 
+drop table if exists t_category cascade;
+create table t_category (
+    id bigint not null default nextval('hibernate_sequence') primary key,
+    name varchar(25) not null,
+    created timestamp not null
+);
+
+drop table if exists t_dish cascade;
+create table t_dish (
+    id bigint not null default nextval('hibernate_sequence') primary key,
+    name text not null,
+    price double precision not null,
+    ingredients varchar(300),
+    weight double precision not null,
+    cooking_time double precision,
+    calories double precision,
+    categories bigint,
+    created timestamp not null,
+    updated timestamp not null,
+
+    constraint t_category_fk foreign key (categories) references t_category(id)
+);
+
 insert into t_role_permission (role_id, permission) values
     ('SUPER_ADMIN', 'USER_READ'),
     ('SUPER_ADMIN', 'USER_CREATE'),
@@ -85,6 +108,15 @@ insert into t_user(id, name, surname, middle_name, phone, password, password_tem
     ('user1@user.ru', 'Людмила', 'Шишкачева', 'Ивановна', '89745879654', '123456', '123456', null, null, 'USER', now()),
     ('user2@user.ru', 'Наташа', 'Пухно', 'Артемовна', '+74569854125', '123123', '123123', null, null, 'USER', now()),
     ('user3@user.ru', 'Денис', 'Збродько', 'Солбонович', '78966589658', '111111', '111111', null, null, 'USER', now());
+
+insert into t_category (name, created) values
+    ('Фастфуд', now()),
+    ('Кофе', now());
+
+insert into t_dish(name, price, ingredients, weight, cooking_time, calories, categories, created, updated) values
+    ('Шаурма', 115.00, 'Лаваш, курица, помидоры, огурец, картофель фри, соус', 250.00, 10.00, 345.00, 4, now(), now()),
+    ('Шашлык', 150.00, 'Свинная шея, маринад', 200.00, 15.00, 215.00, 4, now(), now()),
+    ('Латте', 120.00, 'Молотый кофе, вода, молоко', 150.00, 5.00, 100.00, 5, now(), now());
 
 
 

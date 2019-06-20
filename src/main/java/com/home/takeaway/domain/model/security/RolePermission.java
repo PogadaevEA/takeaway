@@ -22,6 +22,9 @@ public class RolePermission {
     @EmbeddedId
     @Getter @Setter private PK id;
 
+    /**
+     * Роль
+     */
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id", insertable = false, updatable = false)
     @Getter @Setter private Role role;
