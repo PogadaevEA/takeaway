@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,7 +29,7 @@ public class RestaurantController {
      * Получить список ресторанов
      */
     @ApiOperation(value = "Getting all restaurant list", response = RestaurantDTO.class, responseContainer = "List")
-    @PostMapping("/restaurant/list")
+    @GetMapping("/restaurant/list")
     public ResponseEntity getRestaurantList() {
         List<RestaurantDTO> restaurantDTOList = restaurantManager.getRestaurantList();
         return ResponseEntity.ok().body(restaurantDTOList);
