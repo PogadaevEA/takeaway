@@ -47,7 +47,7 @@ create table t_user (
 
 drop table if exists t_category cascade;
 create table t_category (
-    id bigint not null default nextval('hibernate_sequence') primary key,
+    id varchar(25) not null primary key,
     name varchar(25) not null,
     created timestamp not null
 );
@@ -61,11 +61,19 @@ create table t_dish (
     weight double precision not null,
     cooking_time double precision,
     calories double precision,
-    categories bigint,
     created timestamp not null,
-    updated timestamp not null,
+    updated timestamp not null
+);
 
-    constraint t_category_fk foreign key (categories) references t_category(id)
+drop table if exists t_dish_restaurant_category cascade;
+create table t_dish_restaurant_category (
+    dish_id bigint not null,
+    restaurant_id bigint not null,
+    category_id varchar(25) not null,
+
+    constraint t_drc_dish_id_fkey foreign key (dish_id) references t_dish(id),
+    constraint t_drc_restaurant_id_fkey foreign key (restaurant_id) references t_restaurant(id),
+    constraint t_drc_category_id_fkey foreign key (category_id) references t_category(id)
 );
 
 insert into t_role_permission (role_id, permission) values
@@ -91,11 +99,13 @@ insert into t_role_permission (role_id, permission) values
     ('ADMIN', 'ROLE_MODIFY'),
     ('ADMIN', 'ROLE_REMOVE');
 
+
 insert into t_role (id, name, creator, created) values
     ('SUPER_ADMIN', 'Администратор TakeAway LLC', 'egor.pogadaev@gmail.com', now()),
     ('ADMIN', 'Администратор Ресторана','egor.pogadaev@gmail.com', now()),
     ('USER', 'Клиент','egor.pogadaev@gmail.com', now());
 
+-- TODO переделать инсерт для t_restaurant, t_category, t_dish и t_dish_restaurant_category
 insert into t_restaurant(name, address, contact_person, contact_phone, lat, lon, work_time, created, type) VALUES
     ('Coffee Like', 'г.Томск, ул. Усова 3/1', 'Иван Валуев', '8–800–333–41–30', 56.464077, 84.953329, '10:00 - 21:00 Ежедневно', now(), 'COFFEE'),
     ('Донер Мастер', 'г.Томск, ул. Усова 11а', 'Павел Иванович', '33-25-00', 56.454077, 85.953329, '09:00 - 22:00 Ежедневно', now(), 'FASTFOOD'),
@@ -109,14 +119,14 @@ insert into t_user(id, name, surname, middle_name, phone, password, password_tem
     ('user2@user.ru', 'Наташа', 'Пухно', 'Артемовна', '+74569854125', '123123', '123123', null, null, 'USER', now()),
     ('user3@user.ru', 'Денис', 'Збродько', 'Солбонович', '78966589658', '111111', '111111', null, null, 'USER', now());
 
-insert into t_category (name, created) values
-    ('Фастфуд', now()),
-    ('Кофе', now());
+insert into t_category (id, name, created) values
+    ('FASTFOOD', 'Фастфуд', now()),
+    ('COFFEE', 'Кофе', now());
 
-insert into t_dish(name, price, ingredients, weight, cooking_time, calories, categories, created, updated) values
-    ('Шаурма', 115.00, 'Лаваш, курица, помидоры, огурец, картофель фри, соус', 250.00, 10.00, 345.00, 4, now(), now()),
-    ('Шашлык', 150.00, 'Свинная шея, маринад', 200.00, 15.00, 215.00, 4, now(), now()),
-    ('Латте', 120.00, 'Молотый кофе, вода, молоко', 150.00, 5.00, 100.00, 5, now(), now());
+insert into t_dish(name, price, ingredients, weight, cooking_time, calories, created, updated) values
+    ('Шаурма', 115.00, 'Лаваш, курица, помидоры, огурец, картофель фри, соус', 250.00, 10.00, 345.00 , now(), now()),
+    ('Шашлык', 150.00, 'Свинная шея, маринад', 200.00, 15.00, 215.00, now(), now()),
+    ('Латте', 120.00, 'Молотый кофе, вода, молоко', 150.00, 5.00, 100.00, now(), now());
 
 
 

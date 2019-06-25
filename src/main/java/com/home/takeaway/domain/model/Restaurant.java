@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Ресторан - заведение общепита
@@ -17,7 +18,9 @@ public class Restaurant {
      * Идентификатор
      */
     @Id
-    @Column(name = "id")
+    @SequenceGenerator(name = "restaurant_seq", allocationSize = 1, sequenceName = "hibernate_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "restaurant_seq")
+    @Column(name = "id", unique = true)
     @Getter private Long id;
 
     /**
@@ -75,6 +78,13 @@ public class Restaurant {
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     @Getter @Setter private RestaurantType restaurantType;
+
+
+    /**
+     * Список всех блюд ресторана и категорий
+     */
+    @OneToMany(mappedBy = "restaurant", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @Getter @Setter private Set<DishRestaurantCategory> dishRestaurantCategories;
 
     /**
      * Тип заведения

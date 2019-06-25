@@ -2,22 +2,27 @@ package com.home.takeaway.domain.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Блюдо
  */
 @Entity
 @Table(name = "t_dish")
-public class Dish {
+public class Dish implements Serializable {
 
     /**
      * Идентификатор
      */
     @Id
+    @SequenceGenerator(name = "dish_seq", allocationSize = 1, sequenceName = "hibernate_sequence") // TODO вроде понятно, изучить окончательно
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dish_seq")
     @Column(name = "id")
     @Getter private Long id;
 
@@ -58,14 +63,13 @@ public class Dish {
     @Getter @Setter private Double calories;
 
     /**
-     * Категория блюда
+     * Категория блюда, ресторан
      */
-
-    @Column(name = "categories")
-    @Getter @Setter private Long categories;
+    @OneToMany(mappedBy = "dish", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @Getter @Setter private Set<DishRestaurantCategory> dishRestaurantCategories;
 
     /**
-     * Дата добавления
+     * Дата создания
      */
     @Column(name = "created")
     @Temporal(TemporalType.TIMESTAMP)
@@ -75,6 +79,6 @@ public class Dish {
      * Дата обновления
      */
     @Column(name = "updated")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIMESTAMP) // TODO что за аннотация?
     @Getter @Setter private Date updated;
 }
