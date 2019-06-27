@@ -48,4 +48,19 @@ public class Role {
     @OneToMany(mappedBy = "role", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @Getter @Setter private List<RolePermission> permissions;
 
+    @Transient
+    public boolean havePermission(Permission permission) {
+        for (RolePermission rolePermission: this.permissions) {
+            if (rolePermission.getId().getPermission().equals(permission))
+                return true;
+        }
+        return false;
+    }
+
+    @Transient
+    public boolean havePermission(String permissionName) {
+        Permission permission = Permission.getInstanceByName(permissionName);
+        return havePermission(permission);
+    }
+
 }

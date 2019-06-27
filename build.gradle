@@ -39,7 +39,7 @@ task buildJarGat(type: Jar) {
 }
 
 dependencies {
-//    compile 'org.springframework.boot:spring-boot-starter-security'
+    compile 'org.springframework.boot:spring-boot-starter-security'
     compile "io.springfox:springfox-swagger2:${versionSwagger2}"
     compile "io.springfox:springfox-swagger-ui:${versionSwagger2}"
     

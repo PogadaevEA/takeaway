@@ -32,7 +32,7 @@ public class RolePermission {
     @Embeddable
     @NoArgsConstructor
     @AllArgsConstructor
-    private static class PK extends AbstractCompositePK {
+    public static class PK extends AbstractCompositePK {
 
         @Column(name = "role_id", nullable = false)
         @Getter @Setter private String roleId;

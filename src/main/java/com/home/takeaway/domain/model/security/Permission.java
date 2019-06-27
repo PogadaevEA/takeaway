@@ -19,7 +19,13 @@ public enum Permission {
     ROLE_READ("Роли: чтение"),
     ROLE_CREATE("Роли: создание"),
     ROLE_MODIFY("Роли: изменение"),
-    ROLE_REMOVE("Роли: удаление");
+    ROLE_REMOVE("Роли: удаление"),
+
+    RESTAURANT_READ("Рестораны: чтение"),
+    RESTAURANT_CREATE("Рестораны: создание"),
+    RESTAURANT_MODIFY("Рестораны: изменение"),
+    RESTAURANT_REMOVE("Рестораны: удаление");
+
 
     @Getter public final String value;
 
