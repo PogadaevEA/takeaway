@@ -26,9 +26,10 @@ public class RestaurantController {
 
     /**
      * Получить список ресторанов
+     * @return ResponseEntity
      */
     @ApiOperation(value = "Getting all restaurant list", response = RestaurantDTO.class, responseContainer = "List")
-    @GetMapping("/restaurant/list")
+    @GetMapping(value = "/restaurant/list")
     public ResponseEntity getRestaurantList() {
         List<RestaurantDTO> restaurantDTOList = restaurantManager.getRestaurantList();
         return ResponseEntity.ok().body(restaurantDTOList);

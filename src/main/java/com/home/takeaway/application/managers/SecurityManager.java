@@ -24,6 +24,7 @@ public class SecurityManager {
 
     /**
      * Получение списка пользователей, в зависимости от уровня доступа текущего пользователя
+     * @return List
      */
     public List<UserDTO> getUserList() {
         List<UserDTO> userDTOList = new ArrayList<>();

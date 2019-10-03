@@ -5,6 +5,7 @@ import com.home.takeaway.application.managers.SecurityManager;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +26,8 @@ public class SecurityController {
     }
 
     /**
-     * Получение списка пользователей, в зависимости от уровня доступа текущего пользователя
+     * Получение списка пользователей, в зависимости от уровня доступа текущего пользовател
+     * @return ResponseEntity
      */
     @ApiOperation(value = "Getting user list", response = UserDTO.class, responseContainer = "List")
     @GetMapping("user/list")
