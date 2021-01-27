@@ -2,12 +2,13 @@ package com.home.takeaway.infrastructure.configuration;
 
 import com.home.takeaway.domain.service.RestAuthSuccessHandler;
 import com.home.takeaway.domain.service.RestUserDetailService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,21 +32,11 @@ import java.util.Collections;
 @Configuration
 @EnableSwagger2
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final RestUserDetailService userDetailService;
     private final RestAuthSuccessHandler authSuccessHandler;
-
-    @Autowired
-    public SecurityConfig(
-        RestUserDetailService userDetailService,
-        RestAuthSuccessHandler authSuccessHandler
-    ) {
-        this.userDetailService = userDetailService;
-        this.authSuccessHandler = authSuccessHandler;
-    }
-
-
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -70,6 +61,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.exceptionHandling().authenticationEntryPoint(((request, response, authException) -> {
             if (authException != null) response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }));
+    }
+
+    // Временно разрешено смотреть swagger без авторизации
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/v2/api-docs",
+                "/configuration/ui",
+                "/swagger-resources/**",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**");
     }
 
     @Bean

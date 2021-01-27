@@ -2,13 +2,12 @@ package com.home.takeaway.domain.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.home.takeaway.application.dto.UserInfoDTO;
-import com.home.takeaway.application.managers.SecurityManager;
 import com.home.takeaway.domain.model.security.RestUserDetails;
 import com.home.takeaway.domain.model.security.Role;
 import com.home.takeaway.domain.model.security.RolePermission;
 import com.home.takeaway.domain.model.security.User;
 import com.home.takeaway.domain.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -20,20 +19,11 @@ import java.io.IOException;
 import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class RestAuthSuccessHandler implements AuthenticationSuccessHandler {
 
     private final ObjectMapper mapper;
     private final UserRepository userRepository;
-
-    @Autowired
-    public RestAuthSuccessHandler(
-            ObjectMapper mapper,
-            UserRepository userRepository
-    ) {
-        this.mapper = mapper;
-        this.userRepository = userRepository;
-    }
-
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {

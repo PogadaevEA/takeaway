@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.1.5.RELEASE'
     id 'java'
     id 'idea'
+    id 'org.flywaydb.flyway' version '5.2.4'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -27,13 +28,14 @@ repositories {
 
 ext {
     versionSwagger2 = '2.7.0'
+    versionFlyway = '5.2.4'
+    versionMockito = '3.3.3'
 }
 
 task buildJarGat(type: Jar) {
     manifest {
         attributes 'Main-Class': 'com.ntrlab.gat.TakeawayApplication'
     }
-    baseName = 'takeaway'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
@@ -42,16 +44,16 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-security'
     compile "io.springfox:springfox-swagger2:${versionSwagger2}"
     compile "io.springfox:springfox-swagger-ui:${versionSwagger2}"
-    
+
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "org.flywaydb:flyway-core:${versionFlyway}"
 
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     
-    
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+    testCompile "org.mockito:mockito-core:${versionMockito}"
 }

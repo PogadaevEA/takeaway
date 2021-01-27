@@ -9,11 +9,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.ApplicationScope;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
+@ApplicationScope
 public class RestUserDetailService implements UserDetailsService {
 
     private final UserRepository userRepository;
