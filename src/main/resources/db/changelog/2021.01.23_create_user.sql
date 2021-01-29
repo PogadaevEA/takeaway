@@ -1,8 +1,8 @@
 --liquibase formatted sql
 
 --changeset Egor Pogadaev:1
-drop table if exists t_user cascade;
-create table t_user (
+drop table if exists users cascade;
+create table users (
     id varchar(250) not null primary key ,
     name varchar(250) not null,
     surname varchar(250) not null,
@@ -15,12 +15,12 @@ create table t_user (
     role_id varchar(250) not null,
     created timestamp not null,
 
-    constraint t_user_role_fk foreign key (role_id) references t_role (id)
+    constraint user_role_fk foreign key (role_id) references roles (id)
 );
 
 --changeset Egor Pogadaev:2
-insert into t_user(id, name, surname, middle_name, phone, password, password_temp, creator, restaurant_id, role_id, created) values
-    ('egor.pogadaev@gmail.com', 'Егор', 'Погадаев', 'Андреевич', '8-961-886-99-69', '18346', '18346', 'egor.pogadaev@gmail.com', null, 'SUPER_ADMIN', now()),
+insert into users(id, name, surname, middle_name, phone, password, password_temp, creator, restaurant_id, role_id, created)values
+    ('egor.pogadaev@gmail.com', 'Егор', 'Погадаев', 'Андреевич', '8-961-886-99-69', '$2a$10$a9AfZeFEZGGlQHRlRfxji.Tgc6cgUFuPgMwwsywG.kK9loV7RitzK', '18346', 'egor.pogadaev@gmail.com', null, 'SUPER_ADMIN', now()),
     ('adminLike@like.ru', 'Алексей', 'Иванов', 'Юрьевич', '8-985-874-68-84', '123456', '123456', 'egor.pogadaev@gmail.com', 1, 'ADMIN', now()),
     ('admin1Doner@like.ru', 'Сергей', 'Мамаев', 'Сергеевич', '8-254-999-88-00', 'фывапр', 'фывапр', null, 2, 'ADMIN', now()),
     ('admin2Doner@like.ru', 'Павел', 'Томских', 'Семенович', '8-586-254-47-74', 'йцуйцу', 'йцуйцу', null, 3, 'ADMIN', now()),

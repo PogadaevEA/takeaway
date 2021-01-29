@@ -11,7 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "t_dish_restaurant_category")
+@Table(name = "dish_restaurant_categories")
 @Getter
 @Setter
 @NoArgsConstructor

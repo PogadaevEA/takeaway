@@ -11,7 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "t_role_permission")
+@Table(name = "role_permissions")
 @Getter
 @Setter
 public class RolePermission {

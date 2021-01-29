@@ -15,4 +15,17 @@ public class TakeawayApplication {
     public static void main(String[] args) {
         SpringApplication.run(TakeawayApplication.class, args);
     }
+
+//    @Bean
+//    public SpringLiquibase liquibase() {
+//        SpringLiquibase liquibase = new SpringLiquibase();
+//        liquibase.setLiquibaseSchema();
+//
+//        return liquibase;
+//    }
+//
+//    @Bean
+//    public DataSource dataSource() {
+//
+//    }
 }

@@ -15,7 +15,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-@ApplicationScope //todo  что за аннотация и зачем она здесь
+@ApplicationScope
 @RequiredArgsConstructor
 public class RestUserDetailService implements UserDetailsService {
 

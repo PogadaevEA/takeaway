@@ -1,9 +1,6 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/take_away
-    username: take_away
-    password: take_away
-  mvc.locale: ru_RU
   jpa:
     hibernate.ddl-auto: validate
     properties.hibernate:

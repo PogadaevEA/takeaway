@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "t_dish")
+@Table(name = "dishes")
 @Getter
 @Setter
 public class Dish implements Serializable {

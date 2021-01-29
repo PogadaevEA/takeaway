@@ -11,7 +11,7 @@ import java.util.Set;
  * Ресторан - заведение общепита
  */
 @Entity
-@Table(name = "t_restaurant")
+@Table(name = "restaurants")
 @Getter
 @Setter
 public class Restaurant {

@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "t_role")
+@Table(name = "roles")
 @Getter
 @Setter
 public class Role {
