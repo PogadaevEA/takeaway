@@ -1,26 +1,19 @@
 package com.home.takeaway.application.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
 public class UserInfoDTO {
 
-    @Getter @Setter private String login;
-
-    @Getter @Setter private String roleId;
-    @Getter @Setter private String roleName;
-
-    @Getter @Setter private List<String> permissions;
-
-    @Getter @Setter private String surname;
-    @Getter @Setter private String name;
-    @Getter @Setter private String middleName;
-
-    @Getter @Setter private String phone;
+    private String login;
+    private String roleId;
+    private String roleName;
+    private List<String> permissions;
+    private String surname;
+    private String name;
+    private String middleName;
+    private String phone;
 }

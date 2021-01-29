@@ -2,40 +2,26 @@ package com.home.takeaway.application.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.home.takeaway.domain.model.security.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class UserDTO {
 
-    @Getter @Setter private String id;
-
-    @Getter @Setter private String name;
-
-    @Getter @Setter private String surname;
-
-    @Getter @Setter private String middleName;
-
-    @Getter @Setter private String phone;
-
-    @Getter @Setter private String password;
-
-    @Getter @Setter private String passwordTemp;
-
+    private String id;
+    private String name;
+    private String surname;
+    private String middleName;
+    private String phone;
+    private String password;
+    private String passwordTemp;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @Getter @Setter private String creator;
-
+    private String creator;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @Getter @Setter private RestaurantDTO restaurantDTO;
-
-    @Getter @Setter private RoleDTO roleDTO;
-
-    @Getter @Setter private Date created;
+    private RestaurantDTO restaurantDTO;
+    private RoleDTO roleDTO;
+    private Date created;
 
     public UserDTO(User user) {
         this.id = user.getId();

@@ -1,14 +1,13 @@
 package com.home.takeaway.infrastructure.configuration;
 
-import com.home.takeaway.domain.service.RestAuthSuccessHandler;
-import com.home.takeaway.domain.service.RestUserDetailService;
+import com.home.takeaway.domain.service.rest.RestAuthSuccessHandler;
+import com.home.takeaway.domain.service.rest.RestUserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,7 +24,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -39,39 +37,37 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final RestAuthSuccessHandler authSuccessHandler;
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authProvider());
-    }
-
-    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .cors()
                 .and()
                 .csrf().disable()
                 .authorizeRequests().anyRequest().authenticated()
-                .and()
-                .formLogin().successHandler(authSuccessHandler).permitAll()
+                .and().formLogin()/*
+                .successHandler(authSuccessHandler).permitAll()
                 .and()
                 .logout().logoutSuccessHandler(((request, response, authentication) -> {
                     if (authentication != null)
-                        response.setStatus(HttpServletResponse.SC_OK);
-                    else response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                        response.setStatus(HttpStatus.OK.value());
+                    else response.setStatus(HttpStatus.UNAUTHORIZED.value());
         }));
         http.exceptionHandling().authenticationEntryPoint(((request, response, authException) -> {
-            if (authException != null) response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        }));
+            if (authException != null) response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        }))*/;
     }
 
-    // Временно разрешено смотреть swagger без авторизации
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/v2/api-docs",
-                "/configuration/ui",
-                "/swagger-resources/**",
-                "/configuration/security",
-                "/swagger-ui.html",
-                "/webjars/**");
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setUserDetailsService(userDetailService);
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+
+        return daoAuthenticationProvider;
     }
 
     @Bean
@@ -86,19 +82,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return source;
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public DaoAuthenticationProvider authProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailService);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
-    }
-
+    /**
+     * Регистрация Docker
+     * @return
+     */
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -109,6 +96,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .apiInfo(apiInfo());
     }
 
+    private PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    /**
+     * Информация об API
+     */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("Takeaway REST API")
                 .description("All available REST-requests are listed below")

@@ -8,44 +8,48 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "t_dish_restaurant_category")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class DishRestaurantCategory {
 
     @EmbeddedId
-    @Getter @Setter private PK id;
+    private PK id;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}) // TODO что за cascade???
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @MapsId("dishId")
     @JoinColumn(name = "dish_id", referencedColumnName = "id", updatable = false, insertable = false)
-    @Getter @Setter private Dish dish;
+    private Dish dish;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @MapsId("restaurantId")
     @JoinColumn(name = "restaurant_id", referencedColumnName = "id", updatable = false, insertable = false)
-    @Getter @Setter private Restaurant restaurant;
+    private Restaurant restaurant;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @MapsId("categoryId")
     @JoinColumn(name = "category_id", referencedColumnName = "id", updatable = false, insertable = false)
-    @Getter @Setter private Category category;
+    private Category category;
 
     @Embeddable
+    @Getter
+    @Setter
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PK extends AbstractCompositePK {
 
-        @Column(name = "dish_id", nullable = false)
-        @Getter @Setter private Long dishId;
+        @NotNull
+        private Long dishId;
 
-        @Column(name = "restaurant_id", nullable = false)
+        @NotNull
         @Getter @Setter private Long restaurantId;
 
-        @Column(name = "category_id", nullable = false)
+        @NotNull
         @Getter @Setter private String categoryId;
-
     }
 }

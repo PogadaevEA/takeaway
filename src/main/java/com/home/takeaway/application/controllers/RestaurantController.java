@@ -1,7 +1,7 @@
 package com.home.takeaway.application.controllers;
 
 import com.home.takeaway.application.dto.RestaurantDTO;
-import com.home.takeaway.application.managers.RestaurantManager;
+import com.home.takeaway.domain.service.RestaurantService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RestaurantController {
 
-    private final RestaurantManager restaurantManager;
+    private final RestaurantService restaurantService;
 
     /**
      * Получить список ресторанов
@@ -25,7 +25,7 @@ public class RestaurantController {
     @ApiOperation(value = "Getting all restaurant list", response = RestaurantDTO.class, responseContainer = "List")
     @GetMapping(value = "/restaurant/list")
     public ResponseEntity getRestaurantList() {
-        List<RestaurantDTO> restaurantDTOList = restaurantManager.getRestaurantList();
+        List<RestaurantDTO> restaurantDTOList = restaurantService.getRestaurantList();
         return ResponseEntity.ok().body(restaurantDTOList);
     }
 }
