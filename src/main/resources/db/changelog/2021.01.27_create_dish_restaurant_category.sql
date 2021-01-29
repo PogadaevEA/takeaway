@@ -1,5 +1,6 @@
--- author: Egor Pogadaev
+--liquibase formatted sql
 
+--changeset Egor Pogadaev:1
 drop table if exists t_dish_restaurant_category cascade;
 create table t_dish_restaurant_category (
     dish_id bigint not null,
