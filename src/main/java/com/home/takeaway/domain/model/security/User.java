@@ -7,79 +7,39 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 
-/**
- * Пользователь системы
- */
 @Entity
 @Table(name = "t_user")
+@Getter
+@Setter
 public class User {
 
-    /**
-     * Идентификатор пользователя и его же e-mail
-     */
     @Id
-    @Column(name = "id")
-    @Getter private String id;
+    private String id;
+
+    private String name;
+    private String surname;
+    private String middleName;
+    private String phone;
 
     /**
-     * Имя
+     * Password's hash-sum
      */
-    @Column(name = "name")
-    @Getter @Setter private String name;
+    private String password;
 
     /**
-     * Фамилия
+     * Not encoded password - temporary field
      */
-    @Column(name = "surname")
-    @Getter @Setter private String surname;
+    private String passwordTemp;
+    private String creator;
 
-    /**
-     * Отчество
-     */
-    @Column(name = "middle_name")
-    @Getter @Setter private String middleName;
-
-    @Column(name = "phone")
-    @Getter @Setter private String phone;
-
-    /**
-     * Хеш-сумма пароля
-     */
-    @Column(name = "password")
-    @Getter @Setter private String password;
-
-    /**
-     * TODO временное поле с исходным паролем, надо будет его удалить
-     */
-    @Column(name = "password_temp")
-    @Getter @Setter private String passwordTemp;
-
-    /**
-     * Пользователь, создавший этого польхователя
-     */
-    @Column(name = "creator")
-    @Getter @Setter private String creator;
-
-    /**
-     * Ресторан, к которому привязан пользователь - для сотрудника
-     * NULL - для клиента
-     */
     @ManyToOne
     @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
-    @Getter @Setter private Restaurant restaurant;
+    private Restaurant restaurant;
 
-    /**
-     * Роль пользователя. Обязательно должна быть задана
-     */
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id")
-    @Getter @Setter private Role role;
+    private Role role;
 
-    /**
-     * Дата создания
-     */
-    @Column(name = "created")
     @Temporal(TemporalType.TIMESTAMP)
-    @Getter @Setter private Date created = new Date();
-
+    private Date created = new Date();
 }

@@ -8,45 +8,23 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Роль пользователя системы. Роль - есть набор прав.
- * Пользователь может иметь только одну роль.
- */
 @Entity
 @Table(name = "t_role")
+@Getter
+@Setter
 public class Role {
 
-    /**
-     * Идентификатор роли
-     */
     @Id
-    @Column(name = "id")
-    @Getter private String id;
+    private String id;
 
-    /**
-     * Наименование роли
-     */
-    @Column(name = "name")
-    @Getter @Setter private String name;
+    private String name;
+    private String creator;
 
-    /**
-     * Пользователь, создавший роль
-     */
-    @Column(name = "creator")
-    @Getter @Setter private String creator;
-
-    /**
-     * Дата создания
-     */
-    @Column(name = "created")
     @Temporal(TemporalType.TIMESTAMP)
-    @Getter @Setter private Date created = new Date();
+    private Date created = new Date();
 
-    /**
-     * Набор прав роли
-     */
     @OneToMany(mappedBy = "role", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @Getter @Setter private List<RolePermission> permissions;
+    private List<RolePermission> permissions;
 
     @Transient
     public boolean havePermission(Permission permission) {
@@ -62,5 +40,4 @@ public class Role {
         Permission permission = Permission.getInstanceByName(permissionName);
         return havePermission(permission);
     }
-
 }

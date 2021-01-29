@@ -8,38 +8,34 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
-/**
- * Связь роли и набора прав
- */
 @Entity
 @Table(name = "t_role_permission")
+@Getter
+@Setter
 public class RolePermission {
 
-    /**
-     * Составной ключ
-     */
     @EmbeddedId
-    @Getter @Setter private PK id;
+    private PK id;
 
-    /**
-     * Роль
-     */
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id", insertable = false, updatable = false)
-    @Getter @Setter private Role role;
+    private Role role;
 
     @Embeddable
+    @Getter
+    @Setter
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PK extends AbstractCompositePK {
 
-        @Column(name = "role_id", nullable = false)
-        @Getter @Setter private String roleId;
+        @Column(name = "role_id")
+        private String roleId;
 
-        @Column(name = "permission", nullable = false)
+        @NotNull
         @Enumerated(EnumType.STRING)
-        @Getter @Setter private Permission permission;
+        private Permission permission;
     }
 
     @Override

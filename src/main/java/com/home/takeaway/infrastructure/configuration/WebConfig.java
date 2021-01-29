@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@EnableWebMvc // TODO что за аннотации?
+@EnableWebMvc
 @Configuration
 @ComponentScan({ "com.home.takeaway" })
 public class WebConfig implements WebMvcConfigurer {

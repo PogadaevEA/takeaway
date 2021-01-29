@@ -1,26 +1,20 @@
-package com.home.takeaway.application.managers;
+package com.home.takeaway.domain.service;
 
 import com.home.takeaway.application.dto.RestaurantDTO;
 import com.home.takeaway.domain.repository.RestaurantRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@Repository
-public class RestaurantManager {
+@Service
+@RequiredArgsConstructor
+public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
-
-    @Autowired
-    public RestaurantManager(
-            RestaurantRepository restaurantRepository
-    ) {
-        this.restaurantRepository = restaurantRepository;
-    }
 
     public List<RestaurantDTO> getRestaurantList() {
         List<RestaurantDTO> list = new ArrayList<>();
