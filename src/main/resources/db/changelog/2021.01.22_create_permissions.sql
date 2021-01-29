@@ -1,5 +1,6 @@
--- author: Egor Pogadaev
+--liquibase formatted sql
 
+--changeset Egor Pogadaev:1
 drop table if exists t_role_permission cascade;
 create table t_role_permission (
     role_id varchar(250) not null,
@@ -8,7 +9,7 @@ create table t_role_permission (
     constraint t_role_permission_pk primary key (role_id, permission)
 );
 
-
+--changeset Egor Pogadaev:2
 insert into t_role_permission (role_id, permission) values
     ('SUPER_ADMIN', 'USER_READ'),
     ('SUPER_ADMIN', 'USER_CREATE'),

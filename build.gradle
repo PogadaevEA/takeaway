@@ -2,7 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.1.5.RELEASE'
     id 'java'
     id 'idea'
-    id 'org.flywaydb.flyway' version '5.2.4'
+    id "org.liquibase.gradle" version "2.0.4"
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -28,8 +28,8 @@ repositories {
 
 ext {
     versionSwagger2 = '2.7.0'
-    versionFlyway = '5.2.4'
     versionMockito = '3.3.3'
+    versionLiquibase = '4.2.2'
 }
 
 task buildJarGat(type: Jar) {
@@ -41,14 +41,13 @@ task buildJarGat(type: Jar) {
 }
 
 dependencies {
-    compile 'org.springframework.boot:spring-boot-starter-security'
-    compile "io.springfox:springfox-swagger2:${versionSwagger2}"
-    compile "io.springfox:springfox-swagger-ui:${versionSwagger2}"
-
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation "io.springfox:springfox-swagger2:${versionSwagger2}"
+    implementation "io.springfox:springfox-swagger-ui:${versionSwagger2}"
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation "org.flywaydb:flyway-core:${versionFlyway}"
 
+    compileOnly "org.liquibase:liquibase-maven-plugin:${versionLiquibase}"
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.postgresql:postgresql'

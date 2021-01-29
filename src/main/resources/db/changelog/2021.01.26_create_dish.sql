@@ -1,5 +1,6 @@
--- author: Egor Pogadaev
+--liquibase formatted sql
 
+--changeset Egor Pogadaev:1
 drop table if exists t_dish cascade;
 create table t_dish (
     id bigint not null default nextval('hibernate_sequence') primary key,
@@ -13,6 +14,7 @@ create table t_dish (
     updated timestamp not null
 );
 
+--changeset Egor Pogadaev:2
 insert into t_dish(name, price, ingredients, weight, cooking_time, calories, created, updated) values
     ('Шаурма', 115.00, 'Лаваш, курица, помидоры, огурец, картофель фри, соус', 250.00, 10.00, 345.00 , now(), now()),
     ('Шашлык', 150.00, 'Свинная шея, маринад', 200.00, 15.00, 215.00, now(), now()),

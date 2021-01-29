@@ -1,5 +1,6 @@
--- author: Egor Pogadaev
+--liquibase formatted sql
 
+--changeset Egor Pogadaev:1
 drop table if exists t_user cascade;
 create table t_user (
     id varchar(250) not null primary key ,
@@ -17,6 +18,7 @@ create table t_user (
     constraint t_user_role_fk foreign key (role_id) references t_role (id)
 );
 
+--changeset Egor Pogadaev:2
 insert into t_user(id, name, surname, middle_name, phone, password, password_temp, creator, restaurant_id, role_id, created) values
     ('egor.pogadaev@gmail.com', 'Егор', 'Погадаев', 'Андреевич', '8-961-886-99-69', '18346', '18346', 'egor.pogadaev@gmail.com', null, 'SUPER_ADMIN', now()),
     ('adminLike@like.ru', 'Алексей', 'Иванов', 'Юрьевич', '8-985-874-68-84', '123456', '123456', 'egor.pogadaev@gmail.com', 1, 'ADMIN', now()),
