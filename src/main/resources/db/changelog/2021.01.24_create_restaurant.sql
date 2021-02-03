@@ -10,7 +10,7 @@ create table restaurants (
     contact_phone varchar(30),
     lat double precision,
     lon double precision,
-    work_time text,
+    work_time varchar,
     created timestamp not null,
     type varchar(30) not null
 );

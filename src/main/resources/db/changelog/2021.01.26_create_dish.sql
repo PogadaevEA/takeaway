@@ -4,7 +4,7 @@
 drop table if exists dishes cascade;
 create table dishes (
     id bigint not null default nextval('hibernate_sequence') primary key,
-    name text not null,
+    name varchar not null,
     price double precision not null,
     ingredients varchar(300),
     weight double precision not null,

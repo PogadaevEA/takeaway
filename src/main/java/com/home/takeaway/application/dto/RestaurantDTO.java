@@ -1,11 +1,15 @@
 package com.home.takeaway.application.dto;
 
 import com.home.takeaway.domain.model.Restaurant;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
+@Builder
+@AllArgsConstructor
 public class RestaurantDTO {
 
     private String name;

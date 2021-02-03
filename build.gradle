@@ -8,7 +8,7 @@ apply plugin: 'io.spring.dependency-management'
 
 group = 'com.home'
 version = '0.0.1'
-sourceCompatibility = '1.8'
+sourceCompatibility = JavaVersion.VERSION_11
 compileJava.options.encoding = 'UTF-8'
 
 configurations {
@@ -27,8 +27,10 @@ repositories {
 
 ext {
     versionSwagger2 = '2.7.0'
-    versionMockito = '3.3.3'
     versionLiquibase = '4.2.2'
+    versionH2 = '1.4.200'
+    versionJUnit = '5.7.0'
+    versionSpringSecurityTest = '5.4.2'
 }
 
 task buildJarGat(type: Jar) {
@@ -53,5 +55,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testCompile "org.mockito:mockito-core:${versionMockito}"
+    testCompile "com.h2database:h2:${versionH2}"
+    testCompile "org.junit.jupiter:junit-jupiter-engine:${versionJUnit}"
+    testCompile "org.springframework.security:spring-security-test:${versionSpringSecurityTest}"
 }

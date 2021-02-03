@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -21,8 +21,9 @@ public class UserService {
      * @return список пользователей
      */
     public List<UserDTO> getUserList() {
-        List<UserDTO> userDTOList = new ArrayList<>();
-        userRepository.findAll().forEach(user -> userDTOList.add(new UserDTO(user)));
-        return userDTOList;
+        return userRepository.findAll()
+                .stream()
+                .map(UserDTO::new)
+                .collect(Collectors.toList());
     }
 }

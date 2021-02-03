@@ -31,7 +31,7 @@ import java.util.Collections;
 @EnableSwagger2
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final RestUserDetailService userDetailService;
     private final RestAuthSuccessHandler authSuccessHandler;
