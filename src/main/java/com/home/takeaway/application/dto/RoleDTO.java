@@ -4,12 +4,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.home.takeaway.domain.model.security.Role;
 import com.home.takeaway.domain.model.security.RolePermission;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
+@NoArgsConstructor
 public class RoleDTO {
 
     private String id;

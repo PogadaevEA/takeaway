@@ -15,6 +15,7 @@ public class RestaurantDTO {
     private String name;
     private String address;
     private String contactPerson;
+    private String ownerPerson;
     private String contactPhone;
     private Double lat;
     private Double lon;
@@ -26,6 +27,7 @@ public class RestaurantDTO {
         this.name = restaurant.getName();
         this.address = restaurant.getAddress();
         this.contactPerson = restaurant.getContactPerson();
+        this.ownerPerson = restaurant.getUser().getFIO();
         this.contactPhone = restaurant.getContactPhone();
         this.lat = restaurant.getLat();
         this.lon = restaurant.getLon();
@@ -33,4 +35,6 @@ public class RestaurantDTO {
         this.created = restaurant.getCreated();
         this.restaurantType = restaurant.getRestaurantType().name();
     }
+
+
 }

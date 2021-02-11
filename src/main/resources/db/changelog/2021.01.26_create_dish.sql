@@ -1,9 +1,10 @@
 --liquibase formatted sql
 
 --changeset Egor Pogadaev:1
+create sequence s_dishes;
 drop table if exists dishes cascade;
 create table dishes (
-    id bigint not null default nextval('hibernate_sequence') primary key,
+    id bigint not null default nextval('s_dishes') primary key,
     name varchar not null,
     price double precision not null,
     ingredients varchar(300),

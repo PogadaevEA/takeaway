@@ -1,5 +1,6 @@
 package com.home.takeaway.domain.model;
 
+import com.home.takeaway.domain.model.security.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,6 +36,10 @@ public class Restaurant {
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     private RestaurantType restaurantType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @OneToMany(mappedBy = "restaurant", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<DishRestaurantCategory> dishRestaurantCategories;

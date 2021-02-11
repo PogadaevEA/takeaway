@@ -26,7 +26,7 @@ import static org.mockito.Mockito.when;
 @WebMvcTest(controllers = RestaurantController.class, secure = false) //TODO disable security
 public class RestaurantControllerTest {
 
-    private final String GET_LIST_URI = "/restaurant/list";
+    private final String GET_LIST_URI = "/restaurant/list/all";
 
     @Autowired
     private MockMvc mvc;

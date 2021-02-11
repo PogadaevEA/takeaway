@@ -22,4 +22,11 @@ public class RestaurantService {
                 .map(RestaurantDTO::new)
                 .collect(Collectors.toList());
     }
+
+    public List<RestaurantDTO> getRestaurantListByUserId(String userId) {
+        return restaurantRepository.findAllByUserId(userId).stream()
+                .map(RestaurantDTO::new)
+                .collect(Collectors.toList());
+
+    }
 }

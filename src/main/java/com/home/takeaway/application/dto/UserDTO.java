@@ -7,6 +7,8 @@ import lombok.*;
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDTO {
 
     private String id;
@@ -14,14 +16,9 @@ public class UserDTO {
     private String surname;
     private String middleName;
     private String phone;
-    private String password;
-    private String passwordTemp;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String creator;
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private RestaurantDTO restaurantDTO;
 
     private RoleDTO roleDTO;
     private Date created;
@@ -32,10 +29,7 @@ public class UserDTO {
         this.surname = user.getSurname();
         this.middleName = user.getMiddleName();
         this.phone = user.getPhone();
-        this.password = user.getPassword();
-        this.passwordTemp = user.getPasswordTemp();
         this.creator = user.getCreator();
-        this.restaurantDTO = user.getRestaurant() != null ? new RestaurantDTO(user.getRestaurant()) : null;
         this.roleDTO = new RoleDTO(user.getRole());
         this.created = user.getCreated();
     }
