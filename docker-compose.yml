@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  app:
+    build:
+      context: .
+    container_name: 'takeaway'
+    ports:
+      - 8085:8080
+      - 5005:5005
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/take_away
+  db:
+    image: 'postgres:latest'
+    container_name: postgres
+    ports:
+    - 5433:5432
+    environment:
+      - POSTGRES_USER=take_away
+      - POSTGRES_PASSWORD=take_away
