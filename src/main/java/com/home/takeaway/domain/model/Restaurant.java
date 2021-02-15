@@ -15,11 +15,12 @@ import java.util.Set;
 @Table(name = "restaurants")
 @Getter
 @Setter
-public class Restaurant {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type")
+public abstract class Restaurant {
 
     @Id
-    @SequenceGenerator(name = "restaurant_seq", allocationSize = 1, sequenceName = "hibernate_sequence")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "restaurant_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "s_restaurants")
     private Long id;
 
     private String name;
@@ -33,14 +34,12 @@ public class Restaurant {
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
 
-    @Column(name = "type")
-    @Enumerated(EnumType.STRING)
-    private RestaurantType restaurantType;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @OneToMany(mappedBy = "restaurant", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<DishRestaurantCategory> dishRestaurantCategories;
+
+    public abstract RestaurantType getRestaurantType();
 }

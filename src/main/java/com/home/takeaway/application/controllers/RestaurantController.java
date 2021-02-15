@@ -7,9 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +29,11 @@ public class RestaurantController {
     @GetMapping(value = "/list")
     public ResponseEntity<List<RestaurantDTO>> getAllForCurrentUser() {
        return ResponseEntity.ok().body(restaurantService.getRestaurantListByUserId(UserUtils.getCurrentUserId()));
+    }
+
+    @ApiOperation(value = "Create new restaurant", response = RestaurantDTO.class)
+    @PutMapping
+    public ResponseEntity<RestaurantDTO> create(@RequestBody RestaurantDTO restaurantDTO) {
+        return ResponseEntity.ok().body(restaurantService.createRestaurant(restaurantDTO));
     }
 }

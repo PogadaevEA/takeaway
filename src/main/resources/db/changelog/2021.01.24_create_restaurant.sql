@@ -20,7 +20,7 @@ create table restaurants (
 );
 
 --changeset Egor Pogadaev:2
-insert into restaurants(name, address, contact_person, contact_phone, lat, lon, work_time, created, type, user_id) VALUES
-    ('Coffee Like', 'г.Томск, ул. Усова 3/1', 'Иван Валуев', '8–800–333–41–30', 56.464077, 84.953329, '10:00 - 21:00 Ежедневно', now(), 'COFFEE', 'egor.pogadaev@gmail.com'),
-    ('Донер Мастер', 'г.Томск, ул. Усова 11а', 'Павел Иванович', '33-25-00', 56.454077, 85.953329, '09:00 - 22:00 Ежедневно', now(), 'FASTFOOD', 'egor.pogadaev@gmail.com'),
-    ('Донер Мастер', 'г.Томск, ул. Нахимова 87', 'Павел Иванович', '33-26-00', 55.445277, 84.953329, '09:00 - 22:00 Ежедневно', now(), 'FASTFOOD', null);
+insert into restaurants(id, name, address, contact_person, contact_phone, lat, lon, work_time, created, type, user_id) VALUES
+    (nextval('s_restaurants'), 'Coffee Like', 'г.Томск, ул. Усова 3/1', 'Иван Валуев', '8–800–333–41–30', 56.464077, 84.953329, '10:00 - 21:00 Ежедневно', now(), 'COFFEE', 'egor.pogadaev@gmail.com'),
+    (nextval('s_restaurants'),' Донер Мастер', 'г.Томск, ул. Усова 11а', 'Павел Иванович', '33-25-00', 56.454077, 85.953329, '09:00 - 22:00 Ежедневно', now(), 'FASTFOOD', 'egor.pogadaev@gmail.com'),
+    (nextval('s_restaurants'), 'Донер Мастер', 'г.Томск, ул. Нахимова 87', 'Павел Иванович', '33-26-00', 55.445277, 84.953329, '09:00 - 22:00 Ежедневно', now(), 'FASTFOOD', null);

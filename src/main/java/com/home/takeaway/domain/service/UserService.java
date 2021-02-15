@@ -37,7 +37,7 @@ public class UserService {
 
     public void updateUser(UserDTO userDTO) {
         User user = getUserById(userDTO.getId());
-        user = mapper.mapToEntity(user, userDTO);
+        mapper.mapToEntity(user, userDTO);
 
         userRepository.save(user);
         log.info("Пользователь обновлен " + user.toString());

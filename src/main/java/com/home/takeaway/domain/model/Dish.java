@@ -15,8 +15,7 @@ import java.util.Set;
 public class Dish implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "dish_seq", allocationSize = 1, sequenceName = "hibernate_sequence") // TODO вроде понятно, изучить окончательно
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dish_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "s_dishes") // TODO вроде понятно, изучить окончательно
     private Long id;
 
     private String name;
