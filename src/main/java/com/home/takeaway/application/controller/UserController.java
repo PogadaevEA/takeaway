@@ -1,4 +1,4 @@
-package com.home.takeaway.application.controllers;
+package com.home.takeaway.application.controller;
 
 import com.home.takeaway.application.dto.UserDTO;
 import com.home.takeaway.common.utils.UserUtils;

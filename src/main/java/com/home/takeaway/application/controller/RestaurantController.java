@@ -1,4 +1,4 @@
-package com.home.takeaway.application.controllers;
+package com.home.takeaway.application.controller;
 
 import com.home.takeaway.application.dto.RestaurantDTO;
 import com.home.takeaway.common.utils.UserUtils;
@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class RestaurantController {
     }
 
     @ApiOperation(value = "Create new restaurant", response = RestaurantDTO.class)
+    @PreAuthorize("havePermission('RESTAURANT_CREATE')")
     @PutMapping
     public ResponseEntity<RestaurantDTO> create(@RequestBody RestaurantDTO restaurantDTO) {
         return ResponseEntity.ok().body(restaurantService.createRestaurant(restaurantDTO));

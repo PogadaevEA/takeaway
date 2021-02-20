@@ -20,7 +20,8 @@ import java.util.Set;
 public abstract class Restaurant {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "s_restaurants")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "restaurants_generator")
+    @SequenceGenerator(name = "restaurants_generator", sequenceName = "s_restaurants", allocationSize = 1)
     private Long id;
 
     private String name;
@@ -35,7 +36,7 @@ public abstract class Restaurant {
     private Date created;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "restaurant", cascade = {CascadeType.PERSIST, CascadeType.MERGE})

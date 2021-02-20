@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.1.5.RELEASE'
+    id 'org.springframework.boot' version '2.3.4.RELEASE'
     id 'java'
     id 'idea'
 }
@@ -8,7 +8,10 @@ apply plugin: 'io.spring.dependency-management'
 
 group = 'com.home'
 version = '0.0.1'
+
 sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
 compileJava.options.encoding = 'UTF-8'
 
 configurations {
@@ -26,11 +29,9 @@ repositories {
 }
 
 ext {
-    versionSwagger2 = '2.7.0'
-    versionLiquibase = '4.2.2'
-    versionH2 = '1.4.200'
-    versionJUnit = '5.7.0'
-    versionSpringSecurityTest = '5.4.2'
+    swagger2Version = '2.7.0'
+    liquibaseVersion = '4.2.2'
+    h2Version = '1.4.200'
 }
 
 task buildJarGat(type: Jar) {
@@ -42,21 +43,34 @@ task buildJarGat(type: Jar) {
 }
 
 dependencies {
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
     implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation "io.springfox:springfox-swagger2:${versionSwagger2}"
-    implementation "io.springfox:springfox-swagger-ui:${versionSwagger2}"
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation "org.liquibase:liquibase-core:${versionLiquibase}"
-    compile group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '2.8.8'
+    implementation "io.springfox:springfox-swagger2:${swagger2Version}"
+    implementation "io.springfox:springfox-swagger-ui:${swagger2Version}"
+
+    implementation "org.liquibase:liquibase-core:${liquibaseVersion}"
+    implementation 'com.github.ben-manes.caffeine:caffeine:2.8.8'
+    implementation 'javax.validation:validation-api:2.0.1.Final'
 
     compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.postgresql:postgresql'
+
     annotationProcessor 'org.projectlombok:lombok'
-    
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testCompile "com.h2database:h2:${versionH2}"
-    testCompile "org.junit.jupiter:junit-jupiter-engine:${versionJUnit}"
-    testCompile "org.springframework.security:spring-security-test:${versionSpringSecurityTest}"
+
+    testImplementation('org.springframework.security:spring-security-test')
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation "com.h2database:h2:${h2Version}"
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        exceptionFormat = "full"
+        events = ["passed", "skipped", "failed"]
+    }
 }

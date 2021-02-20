@@ -15,7 +15,8 @@ import java.util.Set;
 public class Dish implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "s_dishes") // TODO вроде понятно, изучить окончательно
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dishes_generator")
+    @SequenceGenerator(name = "dishes_generator", sequenceName = "s_dishes", allocationSize = 1)
     private Long id;
 
     private String name;

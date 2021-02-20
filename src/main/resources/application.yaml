@@ -1,6 +1,8 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/take_away
+    hikari:
+      maximum-pool-size: 10
   jpa:
     hibernate.ddl-auto: validate
     properties.hibernate:
@@ -17,6 +19,5 @@ server:
 
 logging:
   level:
-    root: INFO
     sql: WARN
-    web: INFO
+    web: ERROR
