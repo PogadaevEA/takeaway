@@ -1,5 +1,7 @@
 package com.home.takeaway.infrastructure.configuration.security;
 
+import com.home.takeaway.infrastructure.service.RestAuthSuccessHandler;
+import com.home.takeaway.infrastructure.service.RestUserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

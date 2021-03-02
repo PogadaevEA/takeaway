@@ -1,4 +1,4 @@
-package com.home.takeaway.infrastructure.configuration.security;
+package com.home.takeaway.infrastructure.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.home.takeaway.application.dto.UserInfoDTO;

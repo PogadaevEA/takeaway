@@ -16,6 +16,11 @@ server:
   servlet.context-path: /rest/api
   params:
     session.max-inactive-interval: 3600
+    expireAfterWriteDuration: 60
+    schedule:
+      poolSize: 16
+      delays:
+        scheduleEvictAllCache: 3600
 
 logging:
   level:

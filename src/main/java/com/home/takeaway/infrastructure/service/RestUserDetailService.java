@@ -1,4 +1,4 @@
-package com.home.takeaway.infrastructure.configuration.security;
+package com.home.takeaway.infrastructure.service;
 
 import com.home.takeaway.domain.model.security.RestUserDetails;
 import com.home.takeaway.domain.model.security.User;
