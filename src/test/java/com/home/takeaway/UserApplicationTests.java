@@ -14,7 +14,7 @@ import java.util.stream.IntStream;
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
-public class TakeawayApplicationTests {
+public class UserApplicationTests {
 
     @Test
     public void studying_some_futures() throws FileNotFoundException {

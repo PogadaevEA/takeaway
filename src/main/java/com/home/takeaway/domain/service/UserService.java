@@ -10,7 +10,6 @@ import com.home.takeaway.domain.repository.RoleRepository;
 import com.home.takeaway.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +25,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserMapper mapper;
-    private final CacheManager cacheManager;
 
     public List<UserDTO> getUserList() {
         return userRepository.findAll()

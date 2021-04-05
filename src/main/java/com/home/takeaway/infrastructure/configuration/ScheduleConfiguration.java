@@ -20,7 +20,7 @@ public class ScheduleConfiguration implements SchedulingConfigurer {
 
     @Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-        //Allows parallel scheduler's running
+        //Allows parallel scheduler's running in thread pool
         taskRegistrar.setTaskScheduler(this.taskScheduler());
     }
 
