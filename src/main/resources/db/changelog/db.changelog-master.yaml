@@ -8,10 +8,6 @@ databaseChangeLog:
   - include:
       file: db/changelog/2021.01.23_create_user.sql
   - include:
-      file: db/changelog/2021.01.24_create_restaurant.sql
-  - include:
       file: db/changelog/2021.01.25_create_category.sql
   - include:
       file: db/changelog/2021.01.26_create_dish.sql
-  - include:
-      file: db/changelog/2021.01.27_create_dish_restaurant_category.sql

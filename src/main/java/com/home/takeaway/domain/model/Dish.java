@@ -6,7 +6,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Table(name = "dishes")
@@ -25,9 +24,6 @@ public class Dish implements Serializable {
     private Double weight;
     private Double cookingTime;
     private Double calories;
-
-    @OneToMany(mappedBy = "dish", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<DishRestaurantCategory> dishRestaurantCategories;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;

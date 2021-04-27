@@ -6,14 +6,11 @@ import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionOperations;
 import org.springframework.security.core.Authentication;
 
+@Getter
+@Setter
 public class MethodSecurityExpressionRoot extends SecurityExpressionRoot implements MethodSecurityExpressionOperations {
 
-    @Getter
-    @Setter
     private Object filterObject;
-
-    @Getter
-    @Setter
     private Object returnObject;
 
     /**
