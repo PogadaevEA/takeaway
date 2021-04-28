@@ -14,6 +14,8 @@ import javax.validation.constraints.NotNull;
 @Table(name = "role_permissions")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class RolePermission {
 
     @EmbeddedId

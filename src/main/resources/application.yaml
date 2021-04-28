@@ -1,11 +1,14 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/take_away
+    hikari:
+      maximum-pool-size: 10
   jpa:
     hibernate.ddl-auto: validate
     properties.hibernate:
       dialect: org.hibernate.dialect.PostgreSQLDialect
       jdbc.lob.non_contextual_creation: true
+    open-in-view: false
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
 
@@ -14,9 +17,13 @@ server:
   servlet.context-path: /rest/api
   params:
     session.max-inactive-interval: 3600
+    expireAfterWriteDuration: 60
+    schedule:
+      poolSize: 16
+      delays:
+        scheduleEvictAllCache: 3600
 
 logging:
   level:
-    root: INFO
     sql: WARN
-    web: INFO
+    web: ERROR

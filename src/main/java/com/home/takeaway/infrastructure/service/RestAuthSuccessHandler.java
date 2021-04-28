@@ -1,4 +1,4 @@
-package com.home.takeaway.domain.service.rest;
+package com.home.takeaway.infrastructure.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.home.takeaway.application.dto.UserInfoDTO;
@@ -6,7 +6,7 @@ import com.home.takeaway.domain.model.security.RestUserDetails;
 import com.home.takeaway.domain.model.security.Role;
 import com.home.takeaway.domain.model.security.RolePermission;
 import com.home.takeaway.domain.model.security.User;
-import com.home.takeaway.domain.repository.UserRepository;
+import com.home.takeaway.domain.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class RestAuthSuccessHandler implements AuthenticationSuccessHandler {
 
     private final ObjectMapper mapper;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Value("${server.params.session.max-inactive-interval}")
     private Integer maxInactiveInterval;
@@ -35,7 +35,7 @@ public class RestAuthSuccessHandler implements AuthenticationSuccessHandler {
             response.setCharacterEncoding("UTF-8");
             request.getSession().setMaxInactiveInterval(maxInactiveInterval);  //время жизни сессии 60 мин если не делать запросу к серверу, обнуляется при каждом запросе к серверу
             RestUserDetails details = (RestUserDetails) authentication.getPrincipal();
-            User user = userRepository.findById(details.getUsername()).get();
+            User user = userService.getUserById(details.getUsername());
             Role role = user.getRole();
             UserInfoDTO infoDTO = new UserInfoDTO(
                     details.getUsername(),

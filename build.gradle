@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.1.5.RELEASE'
+    id 'org.springframework.boot' version '2.3.4.RELEASE'
     id 'java'
     id 'idea'
 }
@@ -8,7 +8,10 @@ apply plugin: 'io.spring.dependency-management'
 
 group = 'com.home'
 version = '0.0.1'
-sourceCompatibility = '1.8'
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
 compileJava.options.encoding = 'UTF-8'
 
 configurations {
@@ -26,9 +29,9 @@ repositories {
 }
 
 ext {
-    versionSwagger2 = '2.7.0'
-    versionMockito = '3.3.3'
-    versionLiquibase = '4.2.2'
+    swagger2Version = '2.7.0'
+    liquibaseVersion = '4.2.2'
+    h2Version = '1.4.200'
 }
 
 task buildJarGat(type: Jar) {
@@ -40,18 +43,35 @@ task buildJarGat(type: Jar) {
 }
 
 dependencies {
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
     implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation "io.springfox:springfox-swagger2:${versionSwagger2}"
-    implementation "io.springfox:springfox-swagger-ui:${versionSwagger2}"
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation "org.liquibase:liquibase-core:${versionLiquibase}"
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation "io.springfox:springfox-swagger2:${swagger2Version}"
+    implementation "io.springfox:springfox-swagger-ui:${swagger2Version}"
+
+    implementation "org.liquibase:liquibase-core:${liquibaseVersion}"
+    implementation 'com.github.ben-manes.caffeine:caffeine'
+    implementation 'javax.validation:validation-api'
 
     compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.postgresql:postgresql'
+
     annotationProcessor 'org.projectlombok:lombok'
-    
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testCompile "org.mockito:mockito-core:${versionMockito}"
+
+    testImplementation('org.springframework.security:spring-security-test')
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation "com.h2database:h2:${h2Version}"
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        exceptionFormat = "full"
+        events = ["passed", "skipped", "failed"]
+    }
 }

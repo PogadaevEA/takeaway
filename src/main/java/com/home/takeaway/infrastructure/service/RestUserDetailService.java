@@ -1,8 +1,8 @@
-package com.home.takeaway.domain.service.rest;
+package com.home.takeaway.infrastructure.service;
 
 import com.home.takeaway.domain.model.security.RestUserDetails;
 import com.home.takeaway.domain.model.security.User;
-import com.home.takeaway.domain.repository.UserRepository;
+import com.home.takeaway.domain.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,13 +19,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RestUserDetailService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findById(username).orElse(null);
-        if (user == null)
-            throw new UsernameNotFoundException(username);
+        User user = userService.getUserById(username);
 
         Set<GrantedAuthority> grantedAuthorities = user.getRole().getPermissions().stream().map(rolePermission ->
                 (GrantedAuthority) rolePermission::toString).collect(Collectors.toSet());

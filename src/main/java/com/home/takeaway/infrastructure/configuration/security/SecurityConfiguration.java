@@ -1,7 +1,7 @@
-package com.home.takeaway.infrastructure.configuration;
+package com.home.takeaway.infrastructure.configuration.security;
 
-import com.home.takeaway.domain.service.rest.RestAuthSuccessHandler;
-import com.home.takeaway.domain.service.rest.RestUserDetailService;
+import com.home.takeaway.infrastructure.service.RestAuthSuccessHandler;
+import com.home.takeaway.infrastructure.service.RestUserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +31,7 @@ import java.util.Collections;
 @EnableSwagger2
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final RestUserDetailService userDetailService;
     private final RestAuthSuccessHandler authSuccessHandler;

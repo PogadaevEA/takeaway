@@ -1,18 +1,20 @@
 package com.home.takeaway;
 
-import io.swagger.models.auth.In;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.io.*;
-import java.util.*;
+import java.io.FileNotFoundException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Stack;
 import java.util.stream.IntStream;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class TakeawayApplicationTests {
+@ExtendWith(SpringExtension.class)
+@ActiveProfiles("test")
+public class UserApplicationTests {
 
     @Test
     public void studying_some_futures() throws FileNotFoundException {
@@ -23,8 +25,13 @@ public class TakeawayApplicationTests {
         map.put(value,"asd");
         LinkedList<String> stringList = new LinkedList<>(Arrays.asList("a1", "a2", "a3", "a4", "a5"));
 
+        String result = stringList.stream().reduce((a1, a2) -> a1 + a2).orElse(null);
+
         repeatedArrayValue(100, 88);
+        int[] mass = new int[10];
         int[] array = {1,4,9,3,6,8,4,6,7,2,5,0};
+        int[] newArr = Arrays.copyOf(array, 20);
+        System.arraycopy(array, 4, mass, 3, 4);
         boobleSorting(array);
         System.out.println(checkBrackets("()"));
     }
@@ -103,5 +110,7 @@ public class TakeawayApplicationTests {
             }
         }
     }
+
+
 
 }

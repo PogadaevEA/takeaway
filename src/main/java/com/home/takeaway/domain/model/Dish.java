@@ -6,7 +6,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Table(name = "dishes")
@@ -15,8 +14,8 @@ import java.util.Set;
 public class Dish implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "dish_seq", allocationSize = 1, sequenceName = "hibernate_sequence") // TODO вроде понятно, изучить окончательно
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dish_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dishes_generator")
+    @SequenceGenerator(name = "dishes_generator", sequenceName = "s_dishes", allocationSize = 1)
     private Long id;
 
     private String name;
@@ -25,9 +24,6 @@ public class Dish implements Serializable {
     private Double weight;
     private Double cookingTime;
     private Double calories;
-
-    @OneToMany(mappedBy = "dish", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<DishRestaurantCategory> dishRestaurantCategories;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
