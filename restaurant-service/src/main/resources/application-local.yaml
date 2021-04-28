@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    username: ta_restaurant
+    password: ta_restaurant
+
+server:
+  port: 8081
