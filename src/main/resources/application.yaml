@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/take_away
+  jpa:
+    hibernate.ddl-auto: validate
+    properties.hibernate:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      jdbc.lob.non_contextual_creation: true
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
+server:
+  port: 8080
+  servlet.context-path: /rest/api
+  params:
+    session.max-inactive-interval: 3600
+
+logging:
+  level:
+    root: INFO
+    sql: WARN
+    web: INFO
